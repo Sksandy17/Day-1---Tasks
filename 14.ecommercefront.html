@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Frontend</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+            transition: 0.3s;
+        }
+
+        .dark {
+            background: #222;
+            color: white;
+        }
+
+        header {
+            background: #0077cc;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .search-box {
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 8px gray;
+        }
+
+        .dark .card {
+            background: #333;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .price {
+            font-size: 20px;
+            color: green;
+            margin: 10px 0;
+        }
+
+        .cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff6600;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 20px;
+        }
+
+        footer {
+            background: #0077cc;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        @media(max-width:768px) {
+
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <h2>Sandy's Shop</h2> Shop</h2>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Cart</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <input type="text" id="search" class="search-box" placeholder="Search Product" onkeyup="searchProduct()">
+
+        <button onclick="darkMode()">Dark Mode</button>
+
+    </header>
+
+    <div class="container">
+
+        <h2 style="margin-bottom:20px;">Products</h2>
+
+        <div class="products" id="productList">
+
+            <div class="card">
+                <img src="https://assets.myntassets.com/w_412,q_50,,dpr_3,fl_progressive,f_webp/assets/images/2025/DECEMBER/10/FjiasIu2_a6459e9be2e14a768c1a66d897abd3b9.jpg" alt="">
+                <h3>Headphones</h3>
+                <p class="price">₹1200</p>
+                <button onclick="addCart()">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="https://m.media-amazon.com/images/I/41XY5sYX0qL.jpg" alt="">
+                <h3>Smart Watch</h3>
+                <p class="price">₹2500</p>
+                <button onclick="addCart()">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="https://in-files.apjonlinecdn.com/landingpages/category-family/hp-laptops-family/images/w90_gaming_laptops_img.jpg" alt="">
+                <h3>Laptop</h3>
+                <p class="price">₹45000</p>
+                <button onclick="addCart()">Add to Cart</button>
+            </div>
+
+            <div class="card">
+                <img src="https://in-exstatic-vivofs.vivo.com/gdHFRinHEMrj3yPG/1776842211880/51f6f2505a220bfba0459a1e21b0f143.png" alt="">
+                <h3>Mobile Phone</h3>
+                <p class="price">₹18000</p>
+                <button onclick="addCart()">Add to Cart</button>
+            </div>
+
+        </div>
+
+        <br>
+
+        <button onclick="checkout()" style="background:green;color:white;">
+            Proceed to Checkout
+        </button>
+
+    </div>
+
+    <div class="cart" id="cart">
+        0
+    </div>
+
+    <footer>
+
+        <h3>© 2026 Sandy's Shop</h3>
+
+    </footer>
+
+    <script>
+
+        let count = 0;
+
+        function addCart() {
+
+            count++;
+
+            document.getElementById("cart").innerHTML = count;
+
+            alert("Product Added to Cart");
+
+        }
+
+        function searchProduct() {
+
+            let input = document.getElementById("search").value.toLowerCase();
+
+            let cards = document.getElementsByClassName("card");
+
+            for (let i = 0; i < cards.length; i++) {
+
+                let title = cards[i].getElementsByTagName("h3")[0].innerHTML.toLowerCase();
+
+                if (title.indexOf(input) > -1)
+                    cards[i].style.display = "block";
+                else
+                    cards[i].style.display = "none";
+
+            }
+
+        }
+
+        function darkMode() {
+
+            document.body.classList.toggle("dark");
+
+        }
+
+        function checkout() {
+
+            if (count == 0) {
+
+                alert("Your cart is empty!");
+
+            }
+            else {
+
+                alert("Order Placed Successfully!\nItems Purchased : " + count);
+
+                count = 0;
+
+                document.getElementById("cart").innerHTML = count;
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

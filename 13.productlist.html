@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Listing Page</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .controls input,
+        .controls select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: green;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .cart-count {
+            text-align: right;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        @media(max-width:600px) {
+            .controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Product Listing Page</h1>
+
+        <div class="cart-count">
+            Cart Items: <span id="cartCount">0</span>
+        </div>
+
+        <div class="controls">
+            <input type="text" id="searchInput" placeholder="Search Products">
+
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Shoes">Shoes</option>
+            </select>
+
+            <select id="sortPrice">
+                <option value="">Sort By Price</option>
+                <option value="low">Low to High</option>
+                <option value="high">High to Low</option>
+            </select>
+        </div>
+
+        <div class="product-grid" id="productGrid"></div>
+    </div>
+
+    <script>
+
+        const products = [
+            {
+                id: 1,
+                name: "Smartphone",
+                category: "Electronics",
+                price: 15000,
+                image: "https://in-exstatic-vivofs.vivo.com/gdHFRinHEMrj3yPG/1776842211880/51f6f2505a220bfba0459a1e21b0f143.png"
+            },
+            {
+                id: 2,
+                name: "Laptop",
+                category: "Electronics",
+                price: 50000,
+                image: "https://in-files.apjonlinecdn.com/landingpages/category-family/hp-laptops-family/images/w90_gaming_laptops_img.jpg"
+            },
+            {
+                id: 3,
+                name: "T-Shirt",
+                category: "Fashion",
+                price: 799,
+                image: "https://storage.googleapis.com/swag-swami-media/2022/02/c19c1f45-be-kind-to-every-kind-men-t-shirt-black.jpg"
+            },
+            {
+                id: 4,
+                name: "Sneakers",
+                category: "Shoes",
+                price: 2499,
+                image: "https://assets.ajio.com/medias/sys_master/root/20250306/o1HM/67c991f62960820c49d64693/-473Wx593H-700285571-brown-MODEL.jpg"
+            },
+            {
+                id: 5,
+                name: "Headphones",
+                category: "Electronics",
+                price: 1999,
+                image: "https://assets.myntassets.com/w_412,q_50,,dpr_3,fl_progressive,f_webp/assets/images/2025/DECEMBER/10/FjiasIu2_a6459e9be2e14a768c1a66d897abd3b9.jpg"
+            },
+            {
+                id: 6,
+                name: "Jeans",
+                category: "Fashion",
+                price: 1299,
+                image: "https://skipp.co.in/cdn/shop/files/CSMSSJEAN8546_1_426c666e-dd1f-476c-a5f6-3acd7943fa58.jpg?v=1754397841"
+            }
+        ];
+
+        let cartCount = 0;
+
+        function displayProducts(productList) {
+            const grid = document.getElementById("productGrid");
+
+            grid.innerHTML = productList.map(product => `
+        <div class="card">
+            <img src="${product.image}" alt="${product.name}">
+            <div class="card-content">
+                <h3>${product.name}</h3>
+                <p>${product.category}</p>
+                <div class="price">₹${product.price}</div>
+                <button onclick="addToCart()">Add to Cart</button>
+            </div>
+        </div>
+    `).join('');
+        }
+
+        function addToCart() {
+            cartCount++;
+            document.getElementById("cartCount").textContent = cartCount;
+        }
+
+        function filterProducts() {
+            let filtered = [...products];
+
+            const searchValue =
+                document.getElementById("searchInput")
+                    .value
+                    .toLowerCase();
+
+            const category =
+                document.getElementById("categoryFilter")
+                    .value;
+
+            const sort =
+                document.getElementById("sortPrice")
+                    .value;
+
+            filtered = filtered.filter(product =>
+                product.name.toLowerCase().includes(searchValue)
+            );
+
+            if (category !== "all") {
+                filtered = filtered.filter(
+                    product => product.category === category
+                );
+            }
+
+            if (sort === "low") {
+                filtered.sort((a, b) => a.price - b.price);
+            }
+            else if (sort === "high") {
+                filtered.sort((a, b) => b.price - a.price);
+            }
+
+            displayProducts(filtered);
+        }
+
+        document
+            .getElementById("searchInput")
+            .addEventListener("input", filterProducts);
+
+        document
+            .getElementById("categoryFilter")
+            .addEventListener("change", filterProducts);
+
+        document
+            .getElementById("sortPrice")
+            .addEventListener("change", filterProducts);
+
+        displayProducts(products);
+
+    </script>
+
+</body>
+
+</html>

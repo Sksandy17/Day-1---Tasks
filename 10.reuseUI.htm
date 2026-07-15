@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reusable UI Components</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        /* Container */
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        /* Card Component */
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Input Component */
+
+        .input-box {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* Button Component */
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .primary {
+            background: #007bff;
+        }
+
+        .success {
+            background: #28a745;
+        }
+
+        .danger {
+            background: #dc3545;
+        }
+
+        /* Alert Component */
+
+        .alert {
+            display: none;
+            padding: 15px;
+            background: #28a745;
+            color: white;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        /* Responsive */
+
+        @media(max-width:600px) {
+
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Card Component -->
+
+        <div class="card">
+
+            <h2>User Form</h2>
+
+            <input type="text" id="name" class="input-box" placeholder="Enter your name">
+
+            <input type="email" id="email" class="input-box" placeholder="Enter your email">
+
+            <button class="btn primary" onclick="submitForm()">
+
+                Submit
+
+            </button>
+
+            <button class="btn danger" onclick="clearForm()">
+
+                Clear
+
+            </button>
+
+            <div class="alert" id="message">
+
+                Form Submitted Successfully!
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function submitForm() {
+
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+
+            if (name == "" || email == "") {
+
+                alert("Please fill all fields");
+
+            }
+
+            else {
+
+                document.getElementById("message")
+                    .style.display = "block";
+
+            }
+
+        }
+
+        function clearForm() {
+
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+
+            document.getElementById("message")
+                .style.display = "none";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

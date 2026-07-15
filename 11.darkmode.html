@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Feature</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+            color: #333;
+            transition: 0.3s;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-size: 16px;
+        }
+
+        .dark-btn {
+            background: #222;
+            color: white;
+        }
+
+        .submit-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .reset-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        /* Dark Mode */
+
+        .dark-mode {
+            background: #121212;
+            color: white;
+        }
+
+        .dark-mode .container {
+            background: #2a2a2a;
+        }
+
+        .dark-mode input {
+            background: #444;
+            color: white;
+            border: 1px solid #777;
+        }
+
+        /* Responsive */
+
+        @media(max-width:600px) {
+
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            button {
+                width: 100%;
+                margin: 8px 0;
+            }
+
+        }
+    </style>
+</head>
+
+<body id="body">
+
+    <div class="container">
+
+        <h2>Dark Mode Feature</h2>
+
+        <input type="text" id="name" placeholder="Enter Name">
+
+        <input type="email" id="email" placeholder="Enter Email">
+
+        <button class="dark-btn" onclick="toggleDarkMode()">
+            🌙 Dark Mode
+        </button>
+
+        <button class="submit-btn" onclick="submitForm()">
+            Submit
+        </button>
+
+        <button class="reset-btn" onclick="resetForm()">
+            Reset
+        </button>
+
+    </div>
+
+    <script>
+
+        function toggleDarkMode() {
+
+            document.getElementById("body")
+                .classList.toggle("dark-mode");
+
+        }
+
+        function submitForm() {
+
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+
+            if (name == "" || email == "") {
+
+                alert("Please fill all fields");
+
+            }
+            else {
+
+                alert("Form Submitted Successfully!");
+
+            }
+
+        }
+
+        function resetForm() {
+
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+
+            alert("Form Reset Successfully!");
+
+        }
+
+    </script>
+
+</body>
+
+</html>
