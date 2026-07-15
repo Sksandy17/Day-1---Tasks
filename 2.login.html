@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login and Signup Page</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            width: 95%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #6a96c5;
+        }
+
+        #signupForm {
+            display: none;
+        }
+
+        p {
+            cursor: pointer;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Login Form -->
+        <div id="loginForm">
+            <h2>Login</h2>
+
+            <input type="text" id="loginUser" placeholder="Username">
+
+            <input type="password" id="loginPass" placeholder="Password">
+
+            <button onclick="login()">Login</button>
+
+            <p onclick="showSignup()">Create New Account</p>
+        </div>
+
+
+        <!-- Signup Form -->
+        <div id="signupForm">
+            <h2>Sign Up</h2>
+
+            <input type="text" id="signupUser" placeholder="Username">
+
+            <input type="email" id="signupEmail" placeholder="Email">
+
+            <input type="password" id="signupPass" placeholder="Password">
+
+            <button onclick="signup()">Sign Up</button>
+
+            <p onclick="showLogin()">Already have an account?</p>
+        </div>
+
+    </div>
+
+    <script>
+
+        function showSignup() {
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("signupForm").style.display = "block";
+        }
+
+        function showLogin() {
+            document.getElementById("signupForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+        }
+
+        function login() {
+            let user = document.getElementById("loginUser").value;
+            let pass = document.getElementById("loginPass").value;
+
+            if (user == "" || pass == "") {
+                alert("Please enter username and password");
+            }
+            else {
+                alert("Login Successful");
+            }
+        }
+
+        function signup() {
+            let user = document.getElementById("signupUser").value;
+            let email = document.getElementById("signupEmail").value;
+            let pass = document.getElementById("signupPass").value;
+
+            if (user == "" || email == "" || pass == "") {
+                alert("Please fill all fields");
+            }
+            else {
+                alert("Signup Successful");
+                showLogin();
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
